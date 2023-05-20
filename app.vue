@@ -1,31 +1,31 @@
-<script>
+<script setup>
 import AnimatedText from "@/components/AnimatedText.vue";
+import  FullscreenScroll from "@/components/FullscreenScroll.vue";
 
-export default {
-  components: {
-    AnimatedText,
-  },
-  data() {
-    return {
-      options: {
-        licenseKey: 'YOUR_KEY_HEERE',
-        menu: '#menu',
-        anchors: ['page1', 'page2', 'page3'],
-        sectionsColor: ['#41b883', '#ff5f45', '#0798ec'],
-      },
-    }
-  }
+const options =  {
+  licenseKey: 'YOUR_KEY_HEERE',
+  menu: '#menu',
+  anchors: ['page1', 'page2', 'page3'],
+  sectionsColor: ['#41b883', '#ff5f45', '#0798ec'],
 }
+
+const text = "" + 
+  "Hi! \n" + 
+  "My name is Wilke Oncken. \n"+
+  "I was born in the upper north-west part of germany on the north coast in lower saxony. \n" +
+  "This is an SPA ( Single Page application ) I made, to give a small inside in my abilities as an webdeveloper and also to introduce myself with a small presentation.\n" +
+  "I started programming, when I was 16 on the 'Fachgymnasium für Informatik' in Aurich. Since I got many interests, I decided late, that I want to focus on programming, to\n"+
+  "earn my dayly breed. I am also a musican and martial artist and overall I see myself as an artist, where I also see programming as an creative expression in a way and also\n" +
+  "as an art." 
+
 </script>
 <template>
 
-  <div>
-    <!-- <NuxtWelcome /> -->
-    <full-page ref="fullpage" :options="options" id="fullpage">
-      <div class="section">
-        <AnimatedText></AnimatedText> 
-      </div>
-      <div class="section">Second section ...</div>
-    </full-page>
+  <div style="margin:0; padding:0; box-sizing: border-box;">
+    <FullscreenScroll :section-count="6">
+      <template #section-slot-1>
+        <AnimatedText :text="text"></AnimatedText>
+      </template>
+    </FullscreenScroll>
   </div>
-</template>
+</template> 

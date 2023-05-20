@@ -13,6 +13,5 @@
     "nuxt": "^3.5.0"
   },
   "dependencies": {
-    "@fullpage/nuxt-fullpage": "^0.2.3"
   }
 }

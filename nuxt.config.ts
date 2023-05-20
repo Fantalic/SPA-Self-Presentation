@@ -2,6 +2,5 @@
 export default {
     target: 'static',
     modules: [
-        '@fullpage/nuxt-fullpage'
     ]
 }
