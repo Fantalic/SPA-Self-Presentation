@@ -7,7 +7,7 @@ const props = withDefaults(defineProps<IProps>(), {
   sectionCount: 1
 })
 
-let currentSectionIdx = 1; 
+let currentSectionIdx = ref(1); 
 
 const sectionColors =  [
     '#2c3e50', // Dark Blue-Grey
@@ -24,10 +24,10 @@ const sectionColors =  [
 
 function scrollToSection(idx:number) {
     if(idx > props.sectionCount || idx < 0 ) return
-    currentSectionIdx = idx;
+    currentSectionIdx.value = idx;
 
-    if (currentSectionIdx <= props.sectionCount) {
-        const nextSectionElement = document.getElementById(`section-${currentSectionIdx}`);
+    if (currentSectionIdx.value <= props.sectionCount) {
+        const nextSectionElement = document.getElementById(`section-${currentSectionIdx.value}`);
         if (nextSectionElement) {
             nextSectionElement.scrollIntoView({ behavior: 'smooth' });
         }
@@ -38,8 +38,8 @@ function scrollToSection(idx:number) {
 
 <template>
     <div id="FssContainer" >
-        <button class="fixed-button br-corner" @click="scrollToSection(currentSectionIdx+1)">next Page >>></button>
-        <button class="fixed-button bl-corner" @click="scrollToSection(currentSectionIdx-1)">{{"<<< previous Page"}}</button>
+        <button v-if="currentSectionIdx < props.sectionCount" class="fixed-button br-corner" @click="scrollToSection(currentSectionIdx+1)">next Page >>></button>
+        <button v-if="currentSectionIdx > 1" class="fixed-button bl-corner" @click="scrollToSection(currentSectionIdx-1)">{{"<<< previous Page"}}</button>
         <div 
             v-for="idx in sectionCount" 
             :key="idx" 
@@ -47,6 +47,7 @@ function scrollToSection(idx:number) {
             :id="`section-${idx}`"
             :style="'background-color:' + sectionColors[idx]"
         >
+          {{ `section-${idx}` }}
           <slot :name="`section-slot-${idx}`">hallo</slot>
         </div>
     </div>

@@ -1,13 +1,7 @@
 <script setup>
 import AnimatedText from "@/components/AnimatedText.vue";
-import  FullscreenScroll from "@/components/FullscreenScroll.vue";
-
-const options =  {
-  licenseKey: 'YOUR_KEY_HEERE',
-  menu: '#menu',
-  anchors: ['page1', 'page2', 'page3'],
-  sectionsColor: ['#41b883', '#ff5f45', '#0798ec'],
-}
+import FullscreenScroll from "@/components/FullscreenScroll.vue";
+import PdfViewer from '@/components/PdfViewer.vue'
 
 const text = "" + 
   "Hi! \n" + 
@@ -20,11 +14,14 @@ const text = "" +
 
 </script>
 <template>
-
   <div style="margin:0; padding:0; box-sizing: border-box;">
     <FullscreenScroll :section-count="6">
       <template #section-slot-1>
         <AnimatedText :text="text"></AnimatedText>
+      </template>
+      <template #section-slot-2>
+        CV here 
+        <PdfViewer pdfUrl="/CV.pdf" />
       </template>
     </FullscreenScroll>
   </div>

@@ -1,6 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default {
-    target: 'static',
-    modules: [
-    ]
+    ssr:false,
+    modules: []
+    // publicRuntimeConfig: {
+    //     cvPDFpath: '/static/pdf/CV.pdf'
+    // }
 }
