@@ -1,6 +1,7 @@
 <script setup lang="ts">
-export interface IProps {
-    sectionCount:number
+
+interface IProps {
+  sectionCount:number
 }
 
 const props = withDefaults(defineProps<IProps>(), {

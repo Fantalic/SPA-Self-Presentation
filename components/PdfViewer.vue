@@ -1,6 +1,41 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import PdfEmbed from 'vue-pdf-embed'
+
+interface IProps {
+  pdfUrl:string
+}
+
+const props = withDefaults(defineProps<IProps>(), {
+  pdfUrl: ""
+})
+
+const currentPage = ref(1)
+const scale = ref(2)
+
+const nextPage = () => {
+  currentPage.value += 1
+}
+
+const previousPage = () => {
+  currentPage.value -= 1
+}
+
+const zoomIn = () => {
+  scale.value += 0.1
+}
+
+const zoomOut = () => {
+  scale.value -= 0.1
+}
+
+</script>
+
 <template>
   <div>
-    <pdf-embed :src="pdfUrl" :page="currentPage" :scale="scale" />
+    <div class="frame">
+      <PdfEmbed :source="pdfUrl" :page="currentPage" :scale="scale" />
+    </div>
     <div>
       <button @click="previousPage">Previous</button>
       <button @click="nextPage">Next</button>
@@ -10,48 +45,10 @@
   </div>
 </template>
 
-<script>
-import { ref } from 'vue'
-import PdfEmbed from 'vue-pdf-embed'
-
-export default {
-  components: {
-    PdfEmbed
-  },
-  props: {
-    pdfUrl: {
-      type: String,
-      required: true
-    }
-  },
-  setup(props) {
-    const currentPage = ref(1)
-    const scale = ref(1)
-
-    const nextPage = () => {
-      currentPage.value += 1
-    }
-
-    const previousPage = () => {
-      currentPage.value -= 1
-    }
-
-    const zoomIn = () => {
-      scale.value += 0.1
-    }
-
-    const zoomOut = () => {
-      scale.value -= 0.1
-    }
-
-    return {
-      currentPage,
-      scale,
-      nextPage,
-      previousPage,
-      zoomIn,
-      zoomOut
-    }
-  }
+<style scoped>
+.frame{
+  padding: 5rem;
+  margin: 5rem ;
 }
-</script>
+</style>
+

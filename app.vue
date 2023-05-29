@@ -21,7 +21,8 @@ const text = "" +
       </template>
       <template #section-slot-2>
         CV here 
-        <PdfViewer pdfUrl="/CV.pdf" />
+        <link rel="icon" href="./public/favicon.ico" /> 
+        <PdfViewer pdfUrl="./CV.pdf" />
       </template>
     </FullscreenScroll>
   </div>
