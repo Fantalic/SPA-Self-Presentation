@@ -2,6 +2,7 @@
 import AnimatedText from "@/components/AnimatedText.vue";
 import FullscreenScroll from "@/components/FullscreenScroll.vue";
 import PdfViewer from '@/components/PdfViewer.vue'
+import Lazyload from "./components/Lazyload.vue";
 
 const text = "" + 
   "Hi! \n" + 
@@ -17,13 +18,31 @@ const text = "" +
   <div style="margin:0; padding:0; box-sizing: border-box;">
     <FullscreenScroll :section-count="6">
       <template #section-slot-1>
-        <AnimatedText :text="text"></AnimatedText>
+        <AnimatedText :text="text" :font-size="0"/>
       </template>
       <template #section-slot-2>
-        CV here 
-        <link rel="icon" href="./public/favicon.ico" /> 
-        <PdfViewer pdfUrl="./CV.pdf" />
+        <Lazyload v-slot="{isVisible}">
+          <div v-if="isVisible">
+            <AnimatedText 
+              style="position: absolute;z-index: 100; color:black"
+              text="Curriculum Vitae" 
+              :font-size="4"
+            />
+            <PdfViewer 
+              pdfUrl="./CV.pdf" 
+              :page-count="2" 
+            />
+          </div>
+        </Lazyload>
       </template>
     </FullscreenScroll>
   </div>
 </template> 
+<style>
+
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+</style>

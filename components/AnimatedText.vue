@@ -1,26 +1,13 @@
-<template>
-    <div class="aText">
-      <p v-for="(line, lineIndex) in lines" :key="lineIndex">
-      <span
-        v-for="(letter, letterIndex) in line"
-        :key="letterIndex"
-        class="letter"
-        :style="getAnimationDelay(letterIndex, lineIndex)"
-      >
-        {{ letter }}
-      </span>
-    </p>
-    </div>
-  </template>
-  
 <script setup lang="ts">
 import { ref } from 'vue'
 
 interface IProps {
-  text:string
+  text:string,
+  fontSize?:number
 }
 const props = withDefaults(defineProps<IProps>(),{
-  text:""
+  text:"",
+  fontSize:0
 })
 
 let lines:Ref<string[]> = ref(["hallo ? "]);
@@ -39,7 +26,21 @@ function getAnimationDelay(letterIndex:number, lineIndex:number) {
 splitTextIntoLines(props.text)
 
 </script>
-  
+<template>
+  <div class="aText" :style="(fontSize>0)? `font-size:${props.fontSize}em`:''">
+    <p v-for="(line, lineIndex) in lines" :key="lineIndex">
+    <span
+      v-for="(letter, letterIndex) in line"
+      :key="letterIndex"
+      class="letter"
+      :style="getAnimationDelay(letterIndex, lineIndex)"
+    >
+      {{ letter }}
+    </span>
+  </p>
+  </div>
+</template>
+
 <style>
 .letter {
   opacity: 0;

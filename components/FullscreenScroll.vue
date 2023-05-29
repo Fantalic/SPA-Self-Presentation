@@ -38,57 +38,68 @@ function scrollToSection(idx:number) {
 </script>
 
 <template>
-    <div id="FssContainer" >
-        <button v-if="currentSectionIdx < props.sectionCount" class="fixed-button br-corner" @click="scrollToSection(currentSectionIdx+1)">next Page >>></button>
-        <button v-if="currentSectionIdx > 1" class="fixed-button bl-corner" @click="scrollToSection(currentSectionIdx-1)">{{"<<< previous Page"}}</button>
+    <div id="FssContainer" >    
+        <!-- <button v-if="currentSectionIdx > 1" class="fixed-button bl-corner" @click="scrollToSection(currentSectionIdx-1)">{{"<<< previous Page"}}</button> -->
         <div 
             v-for="idx in sectionCount" 
             :key="idx" 
             class="section" 
             :id="`section-${idx}`"
             :style="'background-color:' + sectionColors[idx]"
-        >
-          {{ `section-${idx}` }}
-          <slot :name="`section-slot-${idx}`">hallo</slot>
+        > 
+            <div class="frame">
+              <slot :name="`section-slot-${idx}`">hallo</slot>
+            </div>
+            <button v-if="currentSectionIdx < props.sectionCount" class="fixed-button br-corner" @click="scrollToSection(currentSectionIdx+1)">VVVVV</button>
         </div>
     </div>
 </template>
   
 <style>
+.frame{
+  padding: 2rem;
+}
 .section {
-    min-height: 100vh; /* Set section height to full viewport height */
-    width: 100%;
-    margin:0px;
-    padding: 0px;
-    outline:none;
-    display:inline-block;
+  min-height: 100vh; /* Set section height to full viewport height */
+  width: 100%;
+  margin:0px;
+  padding: 0px;
+  outline:none;
+  display:inline-block;
+  position: relative;
 }
 .fixed-button {
-  position: fixed;
+  position: absolute;
   z-index: 9999; /* Ensure the button appears above other elements */
   display: inline-block;
   padding: 10px 20px;
-  border: none;
+  border: black;
   border-radius: 4px;
-  background-color: #333; /* Replace with your chosen background color */
-  color: #fff; /* Replace with your chosen text color */
-  font-size: 16px;
+  color: black;  
   font-weight: bold;
   text-decoration: none;
-  transition: background-color 0.3s ease; 
+  transition: opacity 0.3s ease; 
+  opacity: 0.1;
 }
 .fixed-button:hover {
   background-color: #555; /* Replace with your chosen hover background color */
+  opacity: 1;
+  color: #fff; /* Replace with your chosen text color */
   /* Add any additional hover effects here */
 }
 
 .br-corner{
-  bottom: 20px; /* Adjust the desired position */
-  right: 20px; /* Adjust the desired position */
+  /* bottom: 20px;  */
+  /*right: 20px;  */
+  right:0;
+  bottom: 0rem;
+  width:100%;
+  padding-bottom: 1.5rem;
 }
 .bl-corner{
   bottom:20px;
   left:20px;
+
 }
 body {
   margin: 0;
