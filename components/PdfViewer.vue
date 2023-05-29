@@ -37,9 +37,10 @@ const zoomOut = () => {
   <div>
     <div class="frame">
       <PdfEmbed :source="pdfUrl" :page="currentPage" :scale="scale" />
-      <button v-if="currentPage>1" class="b-bl-corner" @click="previousPage">Previous</button>
-      <button v-if="props.pageCount != 0 && currentPage < props.pageCount" class="b-br-corner" @click="nextPage">Next</button>
     </div>
+        <button v-if="currentPage>1" class="b b-bl-corner" @click="previousPage">{{"<<< "}}</button>
+        <button v-if="props.pageCount != 0 && currentPage < props.pageCount" class="b b-br-corner" @click="nextPage"> >>></button>
+    
     <div>
 
       <!-- <button @click="zoomIn">Zoom In</button>
@@ -50,19 +51,32 @@ const zoomOut = () => {
 
 <style scoped>
 .frame{
-  padding: 5rem;
-  margin: 5rem ;
+  /* padding: 5rem;
+  margin: 5rem ; */
   position: relative;
+  max-height: 70vh;
+  overflow-y:scroll;
+}
+.b{
+  background-color:#555;
+  font-size: 2em;
+  color: white;
+  transition: opacity 0.3s ease; 
+  opacity: 0.6;
+  border-radius: 1rem;
+}
+.b:hover{
+  opacity: 1;
 }
 .b-br-corner{
   position: absolute;
-  bottom: 20px;  
-  right: 20px; 
+  bottom: 5rem;  
+  right: 5rem; 
 }
 .b-bl-corner{
   position: absolute;
-  bottom:20px;
-  left:20px;
+  bottom:5rem;
+  left:5rem;
 }
 </style>
 

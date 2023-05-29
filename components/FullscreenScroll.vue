@@ -8,7 +8,7 @@ const props = withDefaults(defineProps<IProps>(), {
   sectionCount: 1
 })
 
-let currentSectionIdx = ref(1); 
+const currentSectionIdx = ref(1)
 
 const sectionColors =  [
     '#2c3e50', // Dark Blue-Grey
@@ -25,33 +25,31 @@ const sectionColors =  [
 
 function scrollToSection(idx:number) {
     if(idx > props.sectionCount || idx < 0 ) return
-    currentSectionIdx.value = idx;
-
-    if (currentSectionIdx.value <= props.sectionCount) {
-        const nextSectionElement = document.getElementById(`section-${currentSectionIdx.value}`);
+    currentSectionIdx.value = idx
+        const nextSectionElement = document.getElementById(`section-${idx}`);
         if (nextSectionElement) {
             nextSectionElement.scrollIntoView({ behavior: 'smooth' });
         }
-    }
 }
 
 </script>
 
 <template>
     <div id="FssContainer" >    
-        <!-- <button v-if="currentSectionIdx > 1" class="fixed-button bl-corner" @click="scrollToSection(currentSectionIdx-1)">{{"<<< previous Page"}}</button> -->
-        <div 
-            v-for="idx in sectionCount" 
-            :key="idx" 
-            class="section" 
-            :id="`section-${idx}`"
-            :style="'background-color:' + sectionColors[idx]"
-        > 
-            <div class="frame">
-              <slot :name="`section-slot-${idx}`">hallo</slot>
-            </div>
-            <button v-if="currentSectionIdx < props.sectionCount" class="fixed-button br-corner" @click="scrollToSection(currentSectionIdx+1)">VVVVV</button>
-        </div>
+      <slot :section="currentSectionIdx" ></slot>
+      <div 
+          v-for="idx in sectionCount" 
+          :key="idx" 
+          class="section" 
+          :id="`section-${idx}`"
+          :style="'background-color:' + sectionColors[idx]"
+      > 
+          <button v-if="idx > 1" class="scroll-button b-top" @click="scrollToSection(idx-1)">{{"^^^^^"}}</button>
+          <div class="frame">
+            <slot :name="`section-slot-${idx}`"></slot>
+          </div>
+          <button v-if="idx < props.sectionCount" class="scroll-button b-bottom" @click="scrollToSection(idx+1)">VVVVV</button>
+      </div>
     </div>
 </template>
   
@@ -68,7 +66,7 @@ function scrollToSection(idx:number) {
   display:inline-block;
   position: relative;
 }
-.fixed-button {
+.scroll-button {
   position: absolute;
   z-index: 9999; /* Ensure the button appears above other elements */
   display: inline-block;
@@ -81,29 +79,29 @@ function scrollToSection(idx:number) {
   transition: opacity 0.3s ease; 
   opacity: 0.1;
 }
-.fixed-button:hover {
+.scroll-button:hover {
   background-color: #555; /* Replace with your chosen hover background color */
   opacity: 1;
   color: #fff; /* Replace with your chosen text color */
   /* Add any additional hover effects here */
 }
 
-.br-corner{
-  /* bottom: 20px;  */
-  /*right: 20px;  */
+.b-top{
   right:0;
-  bottom: 0rem;
+  top: 0rem;
   width:100%;
-  padding-bottom: 1.5rem;
+  /* padding-top:1.5rem */
 }
-.bl-corner{
-  bottom:20px;
-  left:20px;
+.b-bottom{
+  bottom:0;
+  left:0;
+  width: 100%;
+  /* padding-bottom: 1.5rem; */
+}
+.section-content{
+  margin:2rem; 
+  margin-top:7rem
+}
 
-}
-body {
-  margin: 0;
-  padding: 0;
-}
 
 </style>

@@ -28,7 +28,7 @@ splitTextIntoLines(props.text)
 </script>
 <template>
   <div class="aText" :style="(fontSize>0)? `font-size:${props.fontSize}em`:''">
-    <p v-for="(line, lineIndex) in lines" :key="lineIndex">
+    <p v-for="(line, lineIndex) in lines" :key="lineIndex" style="padding:0;margin:0">
     <span
       v-for="(letter, letterIndex) in line"
       :key="letterIndex"
